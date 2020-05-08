@@ -1,0 +1,15 @@
+__pycache__/
+
+__pycache__
+
+.venv
+
+virtual/
+
+instance/
+
+start.sh
+
+.vscode
+
+*.pyc
