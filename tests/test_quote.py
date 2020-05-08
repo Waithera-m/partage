@@ -14,7 +14,7 @@ class TestModelQuote(unittest.TestCase):
         '''
         function executes before every test
         '''
-        self.new_quote = Quote('Terry Pratchett','Studies have shown that an ant can carry one hundred times its own weight, but there is no known limit to the lifting power of the average tiny eighty-year-old Spanish peasant grandmother.')
+        self.new_quote = Quote('Terry Pratchett','Studies have shown that an ant can carry one hundred times its own weight, but there is no known limit to the lifting power of the average tiny eighty-year-old Spanish peasant grandmother')
 
     def test_instance(self):
 
@@ -22,3 +22,11 @@ class TestModelQuote(unittest.TestCase):
         function checks if new quote is initialized properly
         '''
         self.assertTrue(isinstance(self.new_quote,Quote))
+    
+    def test_instance_variables(self):
+
+        '''
+        function checks if quote variables are initialized properly
+        '''
+        self.assertEqual(self.new_quote.author,'Terry Pratchett')
+        self.assertEqual(self.new_quote.quote,'Studies have shown that an ant can carry one hundred times its own weight, but there is no known limit to the lifting power of the average tiny eighty-year-old Spanish peasant grandmother')
