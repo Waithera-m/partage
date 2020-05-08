@@ -1,0 +1,22 @@
+.jumbotron {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #e9ecef;
+    border-radius: 0.3rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background: linear-gradient(to bottom, rgba(46, 50, 68, 0.6) 0%,rgba(46, 50, 68, 0.6)100%),
+    url('https://bit.ly/2T2Q0IT');
+    height: 500px;
+    text-align: center;
+    color: aliceblue;
+    font-family: 'Exo', sans-serif;
+    font-size: larger;
+}
+  
+@media (min-width: 576px) {
+    .jumbotron {
+      padding: 4rem 2rem;
+    }
+}

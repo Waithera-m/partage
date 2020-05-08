@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <link href="https://fonts.googleapis.com/css2?family=Exo&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block styles %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1>Partage</h1>
+    <h2>Share your thoughts with the world</h2>
+</div>
+{% endblock %}
