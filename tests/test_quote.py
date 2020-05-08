@@ -1,7 +1,10 @@
 import unittest
 from app.models import Quote
 
-class TestQuote(unittest.TestCase):
+
+
+
+class TestModelQuote(unittest.TestCase):
 
     '''
     class inherits from TestCase class and facilitates the development of test units to test Quote class' behavior
