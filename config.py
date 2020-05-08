@@ -6,6 +6,9 @@ class Config:
     class facilitates the creation of app configurations
     '''
     SECRET_KEY = os.environ.get('SECRET_KEY')
+    
+    QUOTE_URL = 'http://quotes.stormconsultancy.co.uk/random.json'
+    
 
 class DevConfig(Config):
 
