@@ -1,5 +1,6 @@
-from flask import render_template,request,url_for
+from flask import render_template,request,url_for,jsonify
 from . import main
+from ..models import Blog
 # from ..request import get_quote
 
 @main.route('/')
@@ -14,3 +15,6 @@ def index():
     
     
     return render_template('index.html',title=title)
+
+
+    
