@@ -92,6 +92,8 @@ def new_blog():
     title = "New Blog"
     return render_template('new_blog.html',title=title,blog_form=blog_form)
 
+
+
 @main.route('/post/new',methods=["GET","POST"])
 @login_required
 def new_post():
@@ -122,7 +124,18 @@ def single_post(id):
     if post is None:
         abort(404)
     format_post = markdown2.markdown(post.content,extras=["code-friendly","fenced-code-blocks"])
-    return render_template('post.html',review = review,format_post = format_post)
+    return render_template('post.html',post = post,format_post = format_post)
 
+@main.route('/user/<uname>/posts')
+def registered_posts(uname):
+
+
+    '''
+    view function returns all posts added by a particular user
+    '''
+    user = User.query.filter_by(username=uname).first()
+    posts = Post.query.filter_by(user_id=user.id).all()
+
+    return render_template('profile/blog_posts.html',user=user,posts=posts)
 
     
