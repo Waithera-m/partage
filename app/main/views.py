@@ -1,6 +1,9 @@
-from flask import render_template,request,url_for,jsonify
+from flask import render_template,request,url_for,abort,redirect
 from . import main
-from ..models import Blog
+from ..models import User,Blog
+from .. import db,photos
+from flask_login import login_required,current_user
+from .forms import EditProfile
 # from ..request import get_quote
 
 @main.route('/')
@@ -15,6 +18,57 @@ def index():
     
     
     return render_template('index.html',title=title)
+
+@main.route('/user/<uname>')
+def profile(uname):
+
+    '''
+    view function renders user's profile page
+    '''
+    user = User.query.filter_by(username=uname).first()
+
+    if user is None:
+        abort(404)
+    
+    return render_template("profile/profile.html",user=user)
+
+@main.route('/user/<uname>/update', methods=["GET","POST"])
+@login_required
+def edit_profile(uname):
+
+    '''
+    view function renders edit profile template
+    '''
+    user = User.query.filter_by(username=uname).first()
+    if user is None:
+        abort(404)
+    
+    form = EditProfile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile',uname=user.username))
+
+    return render_template('profile/edit.html',form=form)
+
+@main.route('/user/<uname>/update/pic', methods=["POST"])
+@login_required
+def update_pic(uname):
+
+    '''
+    view function facilitates the processing of form submission request
+    '''
+    user = User.query.filter_by(username=uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path=f'photos/{filename}'
+        user.profile_photo_path = path
+        db.session.commit()
+    return redirect(url_for('main.profile',uname=uname))
 
 
     
