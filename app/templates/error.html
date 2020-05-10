@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/error.css')}}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="alert alert-danger">WHOOPS. We cannot find that page. Please check your url</h1>
+        <img src="https://bit.ly/3bChM6d" alt="A photo of a confused robot"class="img-responsive">
+    </div>
+    
+{% endblock%}
