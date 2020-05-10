@@ -1,0 +1,5 @@
+Hello {{user.username}}
+
+Welcome to Partage
+
+We have just seen you have signed up and we want to welcome you to the family.
