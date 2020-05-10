@@ -8,7 +8,7 @@ from flask_wtf.csrf import CSRFProtect
 from flask_uploads import UploadSet,configure_uploads,IMAGES
 from flask_simplemde import SimpleMDE
 
-simple = SimpleMDE()
+simplemde = SimpleMDE()
 
 photos = UploadSet('photos',IMAGES)
 
@@ -44,7 +44,7 @@ def create_app(config_name):
     login_manager.init_app(app)
     mail.init_app(app)
     csrf.init_app(app)
-    simple.init_app(app)
+    simplemde.init_app(app)
 
     #blueprint registration
     from .main import main as main_blueprint

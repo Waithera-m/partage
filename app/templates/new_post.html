@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+<div class="container">
+    <div class="col-md-4">
+        <img src="https://bit.ly/3dy1yLP" alt='new' class='img-responsive'>
+    </div>
+    <div class="col-md-6">
+        {{wtf.quick_form(post_form)}}
+        {{simplemde.load}}
+    </div>
+    <div class="col-md-2"></div>
+</div>
+{% endblock %}

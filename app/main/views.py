@@ -1,9 +1,10 @@
 from flask import render_template,request,url_for,abort,redirect
 from . import main
-from ..models import User,Blog
+from ..models import User,Blog,Post
 from .. import db,photos
 from flask_login import login_required,current_user
-from .forms import EditProfile,NewBlog
+from .forms import EditProfile,NewBlog,NewPost
+import markdown2
 # from ..request import get_quote
 
 @main.route('/')
@@ -90,6 +91,38 @@ def new_blog():
     
     title = "New Blog"
     return render_template('new_blog.html',title=title,blog_form=blog_form)
+
+@main.route('/post/new',methods=["GET","POST"])
+@login_required
+def new_post():
+
+    '''
+    view function returns new blog template and its contents
+    '''
+    post_form = NewPost()
+
+    if post_form.validate_on_submit():
+        title = post_form.title.data
+        content = post_form.content.data
+        new_post = Post(title=title,content=content,user=current_user)
+        db.session.add(new_post)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+    
+    title = "New Post"
+    return render_template('new_post.html',title=title,post_form=post_form)
+
+@main.route('/post/<int:id>')
+def single_post(id):
+
+    '''
+    View function returns transformed markdwon textarea
+    '''
+    post = Post.query.get(id)
+    if post is None:
+        abort(404)
+    format_post = markdown2.markdown(post.content,extras=["code-friendly","fenced-code-blocks"])
+    return render_template('post.html',review = review,format_post = format_post)
 
 
     
