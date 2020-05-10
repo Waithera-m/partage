@@ -38,7 +38,7 @@ class Tag(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(23))
-    blogs = db.Relationship('Blog',backref = 'tag',lazy='dynamic')
+    blogs = db.relationship('Blog',backref = 'tag',lazy='dynamic')
 
     @property
     def serialize(self):
