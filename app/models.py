@@ -26,6 +26,7 @@ class User(db.Model,UserMixin):
     bio = db.Column(db.String(255))
     profile_photo_path = db.Column(db.String())
     password_hash = db.Column(db.String(255))
+    posts = db.relationship('Post',backref='user',lazy="dynamic")
     blogs = db.relationship('Blog',backref='user',lazy="dynamic")
     
     @property
@@ -76,8 +77,20 @@ class Blog(db.Model):
 
     id = db.Column(db.Integer,primary_key=True)
     title = db.Column(db.String(70))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    tag_id = db.Column(db.Integer,db.ForeignKey('tags.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+
+class Post(db.Model):
+
+    '''
+    class facilitates the creation of post objects
+    '''
+    __tablename__ = 'posts'
+
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.String(70))
     content = db.Column(db.Text)
-    blog_photo = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     tag_id = db.Column(db.Integer,db.ForeignKey('tags.id'))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
@@ -95,6 +108,7 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(23))
     blogs = db.relationship('Blog',backref = 'tag',lazy='dynamic')
+    posts = db.relationship('Post',backref = 'tag',lazy='dynamic')
 
     def __repr__(self):
         return f'User {self.username}'
