@@ -8,7 +8,7 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
     
     QUOTE_URL = 'http://quotes.stormconsultancy.co.uk/random.json'
-    
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mary:pixie01@localhost/partage'
 
 class DevConfig(Config):
 
