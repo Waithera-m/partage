@@ -10,7 +10,7 @@ def email_message(subject,template,to,**kwargs):
     '''
     function dictates the format of the welcome email that users will receive once they sign up
     '''
-    email = Message(subject_pref+subjecy,sender=sender_email,recipients=[to])
+    email = Message(subject_pref+subject,sender=sender_email,recipients=[to])
     email.body = render_template(template + ".txt",**kwargs)
     email.html = render_template(template + ".html",**kwargs)
     mail.send(email)

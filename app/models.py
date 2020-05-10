@@ -26,7 +26,6 @@ class User(db.Model,UserMixin):
     bio = db.Column(db.String(255))
     profile_photo_path = db.Column(db.String())
     password_hash = db.Column(db.String(255))
-    pitches = db.relationship('Pitch',backref='user',lazy="dynamic")
     blogs = db.relationship('Blog',backref='user',lazy="dynamic")
     
     @property
