@@ -1,7 +1,7 @@
 from app import create_app,db
 from flask_script import Manager,Server
 from flask_migrate import Migrate,MigrateCommand
-from app.models import Blog
+from app.models import User
 
 
 app = create_app('development')
@@ -21,7 +21,7 @@ def make_shell_context():
     '''
     function facilitates the creation of an external shell
     '''
-    return dict(app=app,db=db,Blog=Blog)
+    return dict(app=app,db=db,User=User)
 
 @manager.command
 def test():

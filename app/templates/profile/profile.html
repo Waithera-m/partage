@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             {% if user.profile_photo_path %}
             <img src="{{url_for('static',filename=user.profile_photo_path)}}" alt="" class="img-thumbnail">
             {% else %}
@@ -18,7 +18,7 @@
             </form>
             {% endif %}
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h3>{{user.username|upper}}</h3>
             {% if user.bio %}
                 <h5>{{user.bio}}</h5>
@@ -29,6 +29,14 @@
             {% if user == current_user %}
                 <a class="btn btn-primary" href="{{url_for('main.edit_profile',uname=user.username)}}">Edit Profile</a>
             {% endif %}
+        </div>
+        <div class="col-md-4">
+            <h3 style="text-align: center;">Interested In A Personal Blog</h3>
+            <hr>
+            <p style="text-align: center;">Would you like to share your interests and worldview with the rest of the world?</p>
+            <p style="text-align: center;">Then create your own blog</p>
+            <p style="text-align: center;">It is easy </p>
+            <p style="text-align: center;">Just click on the Create Blog button below</p>
         </div>
     </div>
 </div>
