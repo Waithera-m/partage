@@ -5,6 +5,8 @@ from .. import db,photos
 from flask_login import login_required,current_user
 from .forms import EditProfile,NewBlog,NewPost,NewComments
 import markdown2
+from sqlalchemy import desc
+from ..email import post_email_message
 # from ..request import get_quote
 
 @main.route('/')
@@ -109,6 +111,7 @@ def new_post():
         new_post = Post(title=title,content=content,user=current_user)
         db.session.add(new_post)
         db.session.commit()
+        post_email_message('New Post Alert','email/alert',user.email,user=user)
         return redirect(url_for('main.index'))
     
     title = "New Post"
@@ -149,19 +152,27 @@ def registered_posts(uname):
     '''
     view function returns all posts added by a particular user
     '''
+   
     user = User.query.filter_by(username=uname).first()
-    posts = Post.query.filter_by(user_id=user.id).all()
+    posts = Post.query.filter_by(user_id=user.id).order_by(Post.id.desc()).all()
 
     return render_template('profile/blog_posts.html',user=user,posts=posts)
 
-@main.route("/post/<int:post_id>/delete", methods=['POST'])
+@main.route("/post/<int:post_id>/delete")
 @login_required
 def delete_post(post_id):
-    post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
+    # import pdb
+
+    # pdb.set_trace()
+
+    post = Post.get_post(id)
+    post_id = post.id
+
+    if post.author is not current_user:
         abort(403)
+    
     db.session.delete(post)
     db.session.commit()
     flash('Your post has been deleted!', 'success')
-    return redirect(url_for('home'))
+    return redirect(url_for('main.index',post_id=post_id))
     

@@ -1,0 +1,6 @@
+Hello {{user.username}}
+
+Someone posted a new post. Please login to see and comment on the post.
+
+Kind Regards,
+Partage

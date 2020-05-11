@@ -96,6 +96,7 @@ class Post(db.Model):
     tag_id = db.Column(db.Integer,db.ForeignKey('tags.id'))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     comments = db.relationship('Comments',backref='post',lazy='dynamic')
+    
 
     @classmethod
     def get_post(cls,id):
