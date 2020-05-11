@@ -33,6 +33,7 @@
 
             {% if user == current_user %}
                 <a class="btn btn-primary" href="{{url_for('main.edit_profile',uname=user.username)}}">Edit Profile</a>
+                <a class="btn btn-primary" href="{{url_for('main.new_post')}}">New Post</a>
             {% endif %}
         </div>
         <div class="col-md-1"></div>
