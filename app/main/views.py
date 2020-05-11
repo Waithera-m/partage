@@ -171,4 +171,21 @@ def delete_post(post_id):
     db.session.commit()
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('main.index',post_id=post_id))
+
+@main.route("/post/<int:post_id>/update",methods=["GET","POST"])
+@login_required
+def update_post(post_id):
+    
+    post = Post.get_post(post_id)
+    
+    post_id = post.id
+    post_form = NewPost()
+
+    if post_form.validate_on_submit():
+        post.title = post_form.title.data
+        post.content = post_form.content.data
+        db.session.commit()
+        flash('Post Updated')
+        return redirect(url_for('main.index'))
+    return render_template('new_post.html',post_form=post_form)
     
