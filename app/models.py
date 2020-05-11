@@ -104,7 +104,9 @@ class Post(db.Model):
         '''
         function queries database and returns pitch with given id
         '''
-        post = Post.query.filter_by(id=id).first()
+        post = cls.query.filter_by(id=id).first()
+        
+
         return post
 
 

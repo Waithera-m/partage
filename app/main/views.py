@@ -1,4 +1,4 @@
-from flask import render_template,request,url_for,abort,redirect
+from flask import render_template,request,url_for,abort,redirect,flash
 from . import main
 from ..models import User,Blog,Post,Comments
 from .. import db,photos
@@ -111,6 +111,7 @@ def new_post():
         new_post = Post(title=title,content=content,user=current_user)
         db.session.add(new_post)
         db.session.commit()
+        user=current_user
         post_email_message('New Post Alert','email/alert',user.email,user=user)
         return redirect(url_for('main.index'))
     
@@ -161,16 +162,11 @@ def registered_posts(uname):
 @main.route("/post/<int:post_id>/delete")
 @login_required
 def delete_post(post_id):
-    # import pdb
-
-    # pdb.set_trace()
-
-    post = Post.get_post(id)
+    
+    post = Post.get_post(post_id)
+    
     post_id = post.id
 
-    if post.author is not current_user:
-        abort(403)
-    
     db.session.delete(post)
     db.session.commit()
     flash('Your post has been deleted!', 'success')
