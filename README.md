@@ -45,7 +45,7 @@ To set up a local project:
 |The landing page loads|Users click on view posts button|Users see all submitted posts|
 |The landing page loads|Users click on sign in button|Users are directed to sign in/ register view, users sign in if they have an account or click on the sign up link to create an account|
 |The landing page loads|Users click on profile navbar link|Users see they profiles and options to edit or upload profile image|
-|The landing page loads|Users click on blog navbar link|Users see their profile image, username and list of all their blog|
+|The landing page loads|Users click on blog navbar link|Users see their profile image, username and list of all their blog posts|
 |The post page loads|Users click on read and comment link|Users see full post and options to edit, delete, or comment on post|
 |The landing page loads|Users click on sign out link in the navbar|Users are logged out|
 ## Technologies Used
