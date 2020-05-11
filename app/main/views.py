@@ -114,17 +114,25 @@ def new_post():
     title = "New Post"
     return render_template('new_post.html',title=title,post_form=post_form)
 
-@main.route('/post/<int:id>')
+@main.route('/post/<int:id>',methods=["GET","POST"])
 def single_post(id):
 
     '''
     View function returns transformed markdwon textarea
     '''
-    post = Post.query.get(id)
+    post = Post.get_post(id)
+    
+    print(post.id)
+
+    print(post.content)
+    print(post.title)
+
     if post is None:
         abort(404)
+
     format_post = markdown2.markdown(post.content,extras=["code-friendly","fenced-code-blocks"])
-    return render_template('post.html',post = post,format_post = format_post)
+    print(format_post)
+    return render_template('post.html',post=post,format_post=format_post)
 
 @main.route('/user/<uname>/posts')
 def registered_posts(uname):

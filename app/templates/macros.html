@@ -1,4 +1,4 @@
-{% macro displayPitches(posts_list) %}
+{% macro displayPosts(posts_list) %}
     {% for post in posts_list %}
         <div class="card" style="width: 60rem;">
             <div class="card-title">
@@ -8,7 +8,7 @@
             <div class="card-body">
                 <p>{{post.content|truncate(100)}}</p>
                 <p>Added by: <i>{{post.user.username}}, {{post.created_at}}</i></p>
-                <h1><a class="btn btn-primary" href="/post/{{post.id}}">Vote and Comment</a></h1>
+                <h1><a class="btn btn-primary" href="{{url_for('main.single_post',id=post.id)}}">Read and Comment</a></h1>
             </div>
         </div>
         <hr>

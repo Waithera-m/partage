@@ -95,8 +95,18 @@ class Post(db.Model):
     tag_id = db.Column(db.Integer,db.ForeignKey('tags.id'))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 
-    def __repr__(self):
-        return f'User {self.username}'
+    @classmethod
+    def get_post(cls,id):
+
+        '''
+        function queries database and returns pitch with given id
+        '''
+        post = Post.query.filter_by(id=id).first()
+        return post
+
+
+
+    
 
 class Tag(db.Model):
 
