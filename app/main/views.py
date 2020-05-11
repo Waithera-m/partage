@@ -118,11 +118,23 @@ def new_post():
     title = "New Post"
     return render_template('new_post.html',title=title,post_form=post_form)
 
+@main.route('/posts')
+def get_posts():
+
+    '''
+    view function returns all posts
+    '''
+    posts = Post.query.order_by(Post.id.desc()).all()
+
+    title = "All Posts"
+
+    return render_template('posts.html',posts=posts,title=title)
+
 @main.route('/post/<int:id>',methods=["GET","POST"])
 def single_post(id):
 
     '''
-    View function returns transformed markdwon textarea
+    View function returns transformed markdown textarea
     '''
     post = Post.get_post(id)
     post_id = post.id
@@ -162,6 +174,10 @@ def registered_posts(uname):
 @main.route("/post/<int:post_id>/delete")
 @login_required
 def delete_post(post_id):
+
+    '''
+    view function deletes post
+    '''
     
     post = Post.get_post(post_id)
     
