@@ -7,7 +7,7 @@ from .forms import EditProfile,NewBlog,NewPost,NewComments
 import markdown2
 from sqlalchemy import desc
 from ..email import post_email_message
-# from ..request import get_quote
+from ..request import get_quote
 
 @main.route('/')
 def index():
@@ -17,10 +17,11 @@ def index():
     '''
     title='Partage'
 
-    # random_quote = get_quote()
+    random_quote = get_quote()
     
     
-    return render_template('index.html',title=title)
+    
+    return render_template('index.html',title=title,random_quote=random_quote)
 
 @main.route('/user/<uname>')
 def profile(uname):
