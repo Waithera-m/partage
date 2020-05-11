@@ -1,7 +1,16 @@
 {% extends 'base.html'%}
 {% import "bootstrap/wtf.html" as wtf %}
 
+{% block styles %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+    
+{% endblock %}
+
 {% block content %}
+<div clas="jumbotron">
+  <h1>LOGIN</h1>
+</div>
 <div class="container"> 
     <div class="row">
       <div class= "col-md-4">
