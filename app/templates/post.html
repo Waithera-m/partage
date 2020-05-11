@@ -16,17 +16,18 @@
     <div class="col-md-3">
       <img src="https://bit.ly/2Wl9Tg7" alt='read' class="img-responsive">
       <a style="margin-top: 5px;" class="btn btn-danger" href="{{url_for('main.delete_post',post_id=post.id)}}">Delete Post</a>
+      <hr>
+      <div style="margin-top: 20px;">
+        <h3><strong>Comments</strong></h3>
+        {{macro.displayUsersComments(comments)}}
+      </div>
     </div>
 
     <div class="col-md-6">
       <h1>{{post.title}}</h1>
       {{format_post|safe}}
       <hr>
-      <div style="margin-top: px;">
-        <h3><strong>Comments</strong></h3>
-        {{macro.displayUsersComments(comments)}}
-        
-    </div>
+      
     </div>
     <div class="col-md-3">
       {% if current_user.is_authenticated %}
