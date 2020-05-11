@@ -1,4 +1,5 @@
 {% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf%}
 
 {% block styles %}
     {{super()}}
@@ -14,9 +15,12 @@
       <img src="https://bit.ly/2Wl9Tg7" alt='read' class="img-responsive">
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-5">
       <h1>{{post.title}}</h1>
       {{format_post|safe}}
+    </div>
+    <div class="col-md-3">
+      {{wtf.quick_form(comment_form)}}
     </div>
   </div>
 </div>

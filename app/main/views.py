@@ -1,9 +1,9 @@
 from flask import render_template,request,url_for,abort,redirect
 from . import main
-from ..models import User,Blog,Post
+from ..models import User,Blog,Post,Comments
 from .. import db,photos
 from flask_login import login_required,current_user
-from .forms import EditProfile,NewBlog,NewPost
+from .forms import EditProfile,NewBlog,NewPost,NewComments
 import markdown2
 # from ..request import get_quote
 
@@ -121,18 +121,26 @@ def single_post(id):
     View function returns transformed markdwon textarea
     '''
     post = Post.get_post(id)
-    
-    print(post.id)
-
-    print(post.content)
-    print(post.title)
+    post_id = post.id
 
     if post is None:
         abort(404)
 
+    comment_form = NewComments()
+
+    if comment_form.validate_on_submit():
+        comment = comment_form.comment.data
+        user = current_user
+        new_comment = Comments(comment=comment,user=user,post_id=post.id)
+
+        new_comment.save_comment()
+
+        return redirect("/post/{post_id}".format(post_id=post.id))
+    comments = Comments.get_comments(post_id)
+
     format_post = markdown2.markdown(post.content,extras=["code-friendly","fenced-code-blocks"])
-    print(format_post)
-    return render_template('post.html',post=post,format_post=format_post)
+    
+    return render_template('post.html',post=post,format_post=format_post,user=current_user,comments=comments,comment_form=comment_form)
 
 @main.route('/user/<uname>/posts')
 def registered_posts(uname):

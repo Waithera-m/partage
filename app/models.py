@@ -28,6 +28,7 @@ class User(db.Model,UserMixin):
     password_hash = db.Column(db.String(255))
     posts = db.relationship('Post',backref='user',lazy="dynamic")
     blogs = db.relationship('Blog',backref='user',lazy="dynamic")
+    comments = db.relationship('Comments',backref='user',lazy='dynamic')
     
     @property
     def password(self):
@@ -94,6 +95,7 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     tag_id = db.Column(db.Integer,db.ForeignKey('tags.id'))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    comments = db.relationship('Comments',backref='post',lazy='dynamic')
 
     @classmethod
     def get_post(cls,id):
@@ -143,4 +145,33 @@ class Quote:
         self.author = author
         self.quote = quote
 
+class Comments(db.Model):
+
+    '''
+    class facilitates the creation of comment objects
+    '''
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer,primary_key=True)
+    comment = db.Column(db.String(1000))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    post_id = db.Column(db.Integer,db.ForeignKey("posts.id"))
+
+    def save_comment(self):
+
+        '''
+        function saves comments to the database
+        '''
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls,post_id):
+
+        '''
+        function retrieves post-specific comments
+        '''
+        comments =  Comments.query.filter_by(post_id=post_id).all()
+
+        return comments
 
